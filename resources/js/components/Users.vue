@@ -99,18 +99,18 @@
     export default {
         data () {
             return {
-            editmode: false,
-            users: {},
-            // Create a new form instance
-            form: new Form({
-                id: '',
-                name: '',
-                email: '',
-                password: '',
-                type: '',
-                bio: '',
-                photo: '',
-            })
+                editmode: false,
+                users: {},
+                // Create a new form instance
+                form: new Form({
+                    id: '',
+                    name: '',
+                    email: '',
+                    password: '',
+                    type: '',
+                    bio: '',
+                    photo: '',
+                })
             }
         },
         methods:{

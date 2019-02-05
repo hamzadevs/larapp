@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -88,5 +98,41 @@ class UserController extends Controller
         $user->delete();
         
         return ['message' => 'user deleted !'];
+    }
+
+    public function profile()
+    {
+        return auth('api')->user();
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth('api')->user();
+
+        $this->validate($request,[
+            'name' => 'required|string|max:191',
+            'email' => 'required|string|email|max:225|unique:users,email,'.$user->id,
+            'password' => 'sometimes|required|min:8'
+        ]);
+        if ($request->photo != $user->photo) {
+            //return explode(':',substr($request->photo,0,strpos($request->photo,';')))[1];
+            $name = time().'.'.explode('/',explode(':',substr($request->photo,0,strpos($request->photo,';')))[1])[1];
+            
+            \Image::make($request->photo)->save(public_path('img/profile/').$name);
+
+            $request->merge(['photo' => $name ]);
+
+            $oldPhoto = public_path('img/profile/').$user->photo;
+            if(file_exists($oldPhoto)){
+                @unlink($oldPhoto);
+            }
+        }
+        if (!empty($request->password)) {
+            $request->merge(['password' => Hash::make($request->password)]);
+        }
+
+        $user->update($request->all());
+
+        return ['message' => 'update the user info'];
     }
 }
