@@ -73,6 +73,7 @@ let routes = [
   { path: '/profile', component: require('./components/Profile.vue').default },
   { path: '/users', component: require('./components/Users.vue').default },
   { path: '/api-developer', component: require('./components/Developer.vue').default },
+  { path :'*', component:require('./components/NotFound.vue').default }
 ]
 
 
@@ -109,6 +110,11 @@ Vue.component(
 Vue.component(
   'passport-personal-access-tokens',
   require('./components/passport/PersonalAccessTokens.vue').default
+);
+//not found
+Vue.component(
+  'not-found',
+  require('./components/NotFound.vue').default
 );
 
 /**

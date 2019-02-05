@@ -1,9 +1,14 @@
 <template>
     <div class="container">
-            <div class="mt-3"></div>
-            <passport-clients></passport-clients>
-            <passport-authorized-clients></passport-authorized-clients>
-            <passport-personal-access-tokens></passport-personal-access-tokens>
+            <div class="mt-3" v-if="$gate.isAdmin()">
+                <passport-clients></passport-clients>
+                <passport-authorized-clients></passport-authorized-clients>
+                <passport-personal-access-tokens></passport-personal-access-tokens>
+            </div>
+            <div class="mt-3" v-if="!$gate.isAdmin()">
+                <not-found></not-found>
+            </div>
+            
     </div>
 </template>
 
