@@ -9,11 +9,11 @@
                   <img class="profile-user-img img-fluid img-circle" :src="getProfilePhoto()" alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                <h3 class="profile-username text-center">{{ this.form.name }}</h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                <p class="text-muted text-center">{{ this.form.type}}</p>
 
-                <ul class="list-group list-group-unbordered mb-3">
+                <!-- <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
                     <b>Followers</b> <a class="float-right">1,322</a>
                   </li>
@@ -23,9 +23,9 @@
                   <li class="list-group-item">
                     <b>Friends</b> <a class="float-right">13,287</a>
                   </li>
-                </ul>
+                </ul> 
 
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>-->
               </div>
               <!-- /.card-body -->
             </div>
@@ -38,57 +38,35 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <strong><i class="fa fa-book mr-1"></i> Education</strong>
+                <strong><i class="fa fa-book mr-1"></i> Bio</strong>
 
                 <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                  {{ this.form.bio }}
                 </p>
 
                 <hr>
-
-                <strong><i class="fa fa-map-marker mr-1"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fa fa-pencil mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="fa fa-file-text-o mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
               </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
           <!-- /.col -->
-          <div class="col-md-9">
+          <div class="col-md-9 mt-3">
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activity</a></li>
-                  <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">Settings</a></li>
+                  <li class="nav-item"><a class="nav-link active show" href="#activity" data-toggle="tab">Activity</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content">
-                  <div class="tab-pane" id="activity">
+                  <div class="tab-pane active show" id="activity">
                       <h1 class="text-center">Display User Activity</h1>
                   </div>
                   <!-- /.tab-pane -->
 
-                  <div class="tab-pane active show" id="settings">
+                  <div class="tab-pane" id="settings">
                     <form class="form-horizontal">
                       <div class="form-group">
                         <label for="inputName" class="col-sm-2 control-label">Name</label>
