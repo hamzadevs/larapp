@@ -72,6 +72,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('isAdmin');
         $user = User::findOrFail($id);
 
         $this->validate($request,[
@@ -93,6 +94,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('isAdmin');
         $user = User::findOrFail($id);
 
         $user->delete();

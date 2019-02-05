@@ -14,8 +14,10 @@ import moment from 'moment'
 import VueProgressBar from 'vue-progressbar'
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2'
+//Authotication ACL class
+import Gate from "./Gate"
 
-
+Vue.prototype.$gate = new Gate(window.user)
 window.Form = Form;
 window.Swal = Swal;
 Vue.component(HasError.name, HasError)

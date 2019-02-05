@@ -79,6 +79,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link >
           </li>
+          @can('isAdmin')
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs text-success"></i>
@@ -94,14 +95,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Users</p>
                 </router-link>
               </li>
-              @can('isAdmin')
               <li class="nav-item">
                 <router-link to="/api-developer" class="nav-link">
                   <i class="fa fa-fingerprint text-secondary nav-icon"></i>
                   <p>Api</p>
                 </router-link>
               </li>
-              @endcan
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
@@ -110,6 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endcan
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fa fa-user text-warning"></i>
@@ -171,8 +171,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-
- <!-- Scripts -->
- <script src="{{ asset('js/app.js') }}" defer></script>
+@auth
+<script>
+  window.user = @json(auth()->user())
+</script>
+@endauth
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
