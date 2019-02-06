@@ -22,7 +22,7 @@
                     <th>Actions</th>
                   </tr>
                   
-                  <tr v-for="user in users" :key="user.id">
+                  <tr v-for="user in users.data" :key="user.id">
                     <td>{{ user.id }}</td>
                     <td>{{ user.name | capitalize}}</td>
                     <td>{{ user.email}}</td>
@@ -33,6 +33,9 @@
                 </tbody></table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                  <pagination :data="users" @pagination-change-page="getResults"></pagination>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -117,6 +120,12 @@
             }
         },
         methods:{
+            getResults(page = 1) {
+                axios.get('api/user?page=' + page)
+                    .then(response => {
+                        this.users = response.data;
+                    });
+		    },
             editUser(id){
                 //console.log('edit user function')
                 this.$Progress.start();
@@ -184,7 +193,7 @@
             loadUsers(){
                 console.log(this.$gate.isAdmin())
                 if(this.$gate.isAdmin()){
-                    axios.get("api/user").then(({data}) => (this.users = data.data));
+                    axios.get("api/user").then(({data}) => (this.users = data));
                 }
             },
             createUser(){
@@ -209,6 +218,9 @@
         },
         mounted() {
             console.log('Component mounted.')
+            // Fetch initial results
+            this.getResults();
+            //progress
             this.$Progress.finish()
         },
         created () {
