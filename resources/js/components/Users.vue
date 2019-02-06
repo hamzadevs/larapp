@@ -191,7 +191,6 @@
                 })
             },
             loadUsers(){
-                console.log(this.$gate.isAdmin())
                 if(this.$gate.isAdmin()){
                     axios.get("api/user").then(({data}) => (this.users = data));
                 }
@@ -248,7 +247,19 @@
             Fire.$on('AfterCreated', ()=>{
                 this.loadUsers();
             })
-            //setInterval(() => this.loadUsers(), 3000);
+            Fire.$on('searchUsers', ()=> {
+                let query = this.$parent.search;
+                axios.get('api/finduser?q='+ query)
+                .then((data) => {
+                    this.users = data.data
+                })
+                .catch(()=>{
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Created User failed'
+                    })
+                })
+            })
         }
 
     }

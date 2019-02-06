@@ -2320,8 +2320,6 @@ __webpack_require__.r(__webpack_exports__);
     loadUsers: function loadUsers() {
       var _this4 = this;
 
-      console.log(this.$gate.isAdmin());
-
       if (this.$gate.isAdmin()) {
         axios.get("api/user").then(function (_ref) {
           var data = _ref.data;
@@ -2381,7 +2379,18 @@ __webpack_require__.r(__webpack_exports__);
     });
     Fire.$on('AfterCreated', function () {
       _this5.loadUsers();
-    }); //setInterval(() => this.loadUsers(), 3000);
+    });
+    Fire.$on('searchUsers', function () {
+      var query = _this5.$parent.search;
+      axios.get('api/finduser?q=' + query).then(function (data) {
+        _this5.users = data.data;
+      }).catch(function () {
+        Toast.fire({
+          type: 'error',
+          title: 'Created User failed'
+        });
+      });
+    });
   }
 });
 
@@ -77419,7 +77428,15 @@ Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ ".
 
 var app = new Vue({
   el: '#app',
-  router: router
+  router: router,
+  data: {
+    search: ''
+  },
+  methods: {
+    searchit: _.debounce(function () {
+      Fire.$emit('searchUsers');
+    }, 1000)
+  }
 });
 
 /***/ }),
